@@ -1,6 +1,3 @@
-import React from 'react';
-import PasswordLogin from './components/PasswordLogin'; 
-import './App.css'
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
 
@@ -16,14 +13,3 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const database = getAuth(app);
-
-
-function App() {
-  return (
-    <div className="App">
-      <PasswordLogin />
-    </div>
-  );
-}
-
-export default App;
