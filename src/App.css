@@ -1,5 +1,5 @@
 *{
-  background-color: lightgray;
+  background-color: #f0f0f0;
 }
 
 .App {
@@ -7,7 +7,7 @@
 }
 
 .App h1{
-  color: rgb(255, 119, 0);
+  color: #3498db;
   font-size: 30px;
 }
 
@@ -22,9 +22,10 @@
 .App button{
   width: 200px;
   height: 35px;
-  background-color: rgb(255, 119, 0);
+  background-color: #3498db;
 }
 
+
 .App button:hover{
-  background-color: gray;
+  background-color: #555555;
 }
