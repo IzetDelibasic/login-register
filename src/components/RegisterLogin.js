@@ -1,50 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { database } from './FirebaseConfig'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 
-export default function RegisterLogin() {
+export default function RegisterAndLogin() {
+  const [login, setLogin] = useState(false);
+
   const history = useNavigate();
-  
-  const auth = getAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, type) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user, "authData");
-
-      history('/home');
-    })
-    .catch((error) => {
-      if (error.code === "auth/email-already-in-use") {
-
-        signInWithEmailAndPassword(auth, email, password)
-          .then(() => {
-
-            history('/home');
-          })
-          .catch((signInError) => {
-            console.error(signInError.message);
-          });
-      } else {
-        console.error(error.message);
-      }
-    });
-  
-  }
+    if (type == "signup") {
+      createUserWithEmailAndPassword(database, email, password)
+        .then((data) => {
+          console.log(data, "authData");
+          history("/home");
+        })
+        .catch((err) => {
+          alert(err.code);
+          setLogin(true);
+        });
+    } else {
+      signInWithEmailAndPassword(database, email, password)
+        .then((data) => {
+          console.log(data, "authData");
+          history("/home");
+        })
+        .catch((err) => {
+          alert(err.code);
+        });
+    }
+  };
   
   return (
       <div>
-        <h1>Register - Login</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
+          <h1>{login ? "SignIn" : "SignUp"}</h1>
+          <form onSubmit={(e) => handleSubmit(e, login ? 'signin' : 'signup')}>
           <input name='email' placeholder='Email' /><br />
           <input name='password' placeholder='Password' type='password' /><br /><br />
-          <button name='reglog'>Register / Login</button>
+          <button name='reglog'>{login ? "SignIn" : "SignUp"}</button>
         </form>
       </div>
     );
