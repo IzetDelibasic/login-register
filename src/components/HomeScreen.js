@@ -18,6 +18,13 @@ export default function HomeScreen() {
   return (
     <div>
       <h1>Welcome!</h1>
+      <p>
+        Click to explore my further progress and projects:{" "}
+        <a href="https://github.com/IzetDelibasic" target="_blank" rel="noopener noreferrer">
+          GitHub profile
+        </a>
+      </p>
+
       <button onClick={handleClick}>SignOut</button>
     </div>
   );
